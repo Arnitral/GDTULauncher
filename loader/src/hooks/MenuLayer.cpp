@@ -53,12 +53,6 @@ struct CustomMenuLayer : Modify<CustomMenuLayer, MenuLayer> {
 
         // add geode button
         if (!m_fields->m_menuDisabled) {
-            m_fields->m_geodeButton = CircleButtonSprite::createWithSpriteFrameName(
-                "geode-logo-outline-gold.png"_spr,
-                .95f,
-                CircleBaseColor::Green,
-                CircleBaseSize::MediumAlt
-            );
             auto geodeBtnSelector = &CustomMenuLayer::onGeode;
             if (!m_fields->m_geodeButton) {
                 geodeBtnSelector = &CustomMenuLayer::onMissingTextures;
@@ -393,6 +387,6 @@ struct CustomMenuLayer : Modify<CustomMenuLayer, MenuLayer> {
     }
 
     void onGeode(CCObject*) {
-        ModsLayer::scene();
+        FLAlertLayer::create("Info", "No no no mr. fish", "OK")->show();
     }
 };
