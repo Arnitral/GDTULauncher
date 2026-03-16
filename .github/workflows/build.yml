@@ -421,10 +421,23 @@ jobs:
           files: geode-android32/Geode.android32.so geode-android32/Geode.android32.so.sym
           dest: geode-${{ steps.ref.outputs.hash }}-android32.zip
 
+      # --- НОВЫЙ ШАГ: Подготовка модов ---
+      - name: Prepare Android Mods
+        run: |
+          mkdir -p mods
+          if [ -d "default_mods" ]; then
+            cp default_mods/*.geode mods/
+          fi
+
+      # --- ИЗМЕНЕННЫЙ ШАГ: Упаковка Android 64 ---
       - name: Zip Android64 Artifacts
         uses: vimtor/action-zip@v1.2
         with:
-          files: geode-android64/Geode.android64.so geode-android64/Geode.android64.so.sym
+          # Мы добавляем папку mods_bundle в архив под именем 'mods'
+          files: |
+            geode-android64/Geode.android64.so
+            geode-android64/Geode.android64.so.sym
+            mods/
           dest: geode-${{ steps.ref.outputs.hash }}-android64.zip
 
       - name: Zip iOS Artifacts
